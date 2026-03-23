@@ -63,17 +63,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The Story */}
+      {/* The Story — image in left rail on large screens so it reads with the section, not tacked under copy */}
       <section id="story" className="py-32 px-6 md:px-12 bg-white">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-4 lg:col-span-3">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+          <div className="lg:col-span-4 flex flex-col gap-10">
             <FadeIn>
-              <p className="text-sm font-mono text-zinc-400 uppercase tracking-widest sticky top-32">
+              <p className="text-sm font-mono text-zinc-400 uppercase tracking-widest lg:sticky lg:top-32">
                 01 / Our Heart
               </p>
             </FadeIn>
+            <FadeIn className="w-full">
+              <div className="relative aspect-[4/5] max-h-[min(72vh,640px)] overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/IMG_6239.webp"
+                  alt="A moment from the previous India trip"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </FadeIn>
           </div>
-          <div className="md:col-span-8 lg:col-span-8 lg:col-start-5">
+          <div className="lg:col-span-8 lg:col-start-5">
             <StaggerContainer>
               <StaggerItem>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-12 text-balance">
@@ -102,28 +113,15 @@ export default function Home() {
                   </p>
                 </div>
               </StaggerItem>
-              <StaggerItem className="pt-14">
-                <div className="grid grid-cols-1 md:grid-cols-[1.15fr_0.85fr] gap-6 items-end">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-                    <Image
-                      src="/images/IMG_6239.webp"
-                      alt="A moment from the previous India trip"
-                      fill
-                      sizes="(min-width: 768px) 40vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="pb-2">
-                    <p className="text-sm font-mono uppercase tracking-[0.24em] text-zinc-400 mb-3">
-                      Last Year
-                    </p>
-                    <p className="text-lg text-zinc-600 leading-relaxed">
-                      This trip is personal for us. These aren&apos;t stock moments
-                      or abstract ideas, but real faces, real friendships, and a
-                      real place we&apos;re inviting families into.
-                    </p>
-                  </div>
-                </div>
+              <StaggerItem className="pt-12 border-t border-zinc-200 mt-12">
+                <p className="text-sm font-mono uppercase tracking-[0.24em] text-zinc-400 mb-3">
+                  Last Year
+                </p>
+                <p className="text-lg text-zinc-600 leading-relaxed max-w-[50ch]">
+                  This trip is personal for us. These aren&apos;t stock moments or
+                  abstract ideas, but real faces, real friendships, and a real
+                  place we&apos;re inviting families into.
+                </p>
               </StaggerItem>
             </StaggerContainer>
           </div>
