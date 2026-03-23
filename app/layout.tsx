@@ -8,11 +8,11 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Family Missions Trip — India 2026",
+  title: "Family Missions Trip · India 2026",
   description:
     "Join Ben & Celine Valentin for a family missions trip to India in November 2026. Serve alongside local ministry, build relationships, and experience God's heart for the nations.",
   openGraph: {
-    title: "Family Missions Trip — India 2026",
+    title: "Family Missions Trip · India 2026",
     description:
       "Join us for a life-changing family missions trip to India. November 2026.",
     images: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Family Missions Trip — India 2026",
+    title: "Family Missions Trip · India 2026",
     description:
       "Join us for a life-changing family missions trip to India. November 2026.",
     images: ["/og-image.jpg"],
