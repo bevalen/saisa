@@ -16,7 +16,7 @@ export default function Home() {
   const logisticsItems = [
     {
       title: "When",
-      desc: "Early November 2026. Roughly 10 days, maybe closer to two weeks once we nail things down.",
+      desc: "Early November 2026. Roughly 10 days, maybe closer to two weeks once we nail things down. We picked November on purpose — the weather is ideal (no monsoon, no summer heat), air quality is at its best, flights are more affordable, and it's shoulder season so the tourist crowds thin out. It's genuinely one of the best windows to visit.",
     },
     {
       title: "Where",
