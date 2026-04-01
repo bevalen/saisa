@@ -36,3 +36,14 @@ html {
   background: var(--accent);
   color: white;
 }
+
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+select,
+summary {
+  cursor: pointer;
+}

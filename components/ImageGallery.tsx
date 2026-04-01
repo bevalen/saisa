@@ -143,7 +143,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               className={[
                 "group relative aspect-[4/5] w-[min(78vw,320px)] shrink-0 snap-center overflow-hidden rounded-2xl",
                 "shadow-[0_12px_40px_-12px_rgba(0,0,0,0.18)] ring-1 ring-zinc-900/5 transition-transform",
-                "hover:ring-zinc-900/10 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950",
+                "hover:ring-zinc-900/10 active:scale-[0.98] focus-visible:z-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950",
               ].join(" ")}
               aria-label={`Open photo: ${image.alt}`}
             >
