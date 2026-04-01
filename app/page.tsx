@@ -296,7 +296,7 @@ export default function Home() {
                   alt="Our homebase — a large family home in South Asia"
                   fill
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="object-cover object-[center_35%]"
+                  className="object-cover object-[center_25%]"
                 />
               </div>
             </FadeIn>
@@ -314,13 +314,13 @@ export default function Home() {
                 <div className="space-y-8 text-xl md:text-2xl text-zinc-600 leading-relaxed max-w-[55ch] mx-auto lg:mx-0">
                   <p>
                     We&apos;ll be staying together in a large family home that belongs
-                    to dear friends of ours. This is homebase — where we&apos;ll
+                    to dear friends of ours. This is homebase, where we&apos;ll
                     sleep, eat, gather, and do life together for the majority of
                     the trip.
                   </p>
                   <p>
                     Mornings start with worship together. Evenings wind down over
-                    dinner with testimony time — hearing stories from local friends
+                    dinner with testimony time, hearing stories from local friends
                     about what God is doing in their communities. Those moments
                     around the table are some of the most powerful parts of a trip
                     like this.
@@ -328,7 +328,7 @@ export default function Home() {
                   <p>
                     When Ben was there last year, he walked into this house and
                     literally felt at home. A sense of peace. Comfort. By the end
-                    of the trip, it wasn&apos;t someone else&apos;s house anymore — it
+                    of the trip, it wasn&apos;t someone else&apos;s house anymore. It
                     was home. It really is a special place, and we can&apos;t wait to
                     share it with you.
                   </p>
