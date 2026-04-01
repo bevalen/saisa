@@ -296,7 +296,7 @@ export default function Home() {
                   alt="Our homebase — a large family home in South Asia"
                   fill
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="object-cover object-[center_25%]"
+                  className="object-cover object-[center_45%]"
                 />
               </div>
             </FadeIn>
