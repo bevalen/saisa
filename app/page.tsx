@@ -279,8 +279,69 @@ export default function Home() {
       </section>
 
       <section
-        id="details"
+        id="homebase"
         className="scroll-mt-28 py-32 px-6 md:px-12 bg-white"
+      >
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+          <div className="lg:col-span-4 flex flex-col gap-10 items-center text-center lg:items-start lg:text-left">
+            <FadeIn className="w-full">
+              <p className="text-sm font-mono text-zinc-400 uppercase tracking-widest lg:sticky lg:top-32">
+                Where we&apos;ll stay
+              </p>
+            </FadeIn>
+            <FadeIn className="w-full">
+              <div className="relative aspect-square overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/homebase.webp"
+                  alt="Our homebase — a large family home in South Asia"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover object-[center_35%]"
+                />
+              </div>
+            </FadeIn>
+          </div>
+          <div className="lg:col-span-8 lg:col-start-5 text-center lg:text-left">
+            <StaggerContainer>
+              <StaggerItem>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-12 text-balance mx-auto lg:mx-0">
+                  Your home
+                  <br />
+                  away from home
+                </h2>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="space-y-8 text-xl md:text-2xl text-zinc-600 leading-relaxed max-w-[55ch] mx-auto lg:mx-0">
+                  <p>
+                    We&apos;ll be staying together in a large family home that belongs
+                    to dear friends of ours. This is homebase — where we&apos;ll
+                    sleep, eat, gather, and do life together for the majority of
+                    the trip.
+                  </p>
+                  <p>
+                    Mornings start with worship together. Evenings wind down over
+                    dinner with testimony time — hearing stories from local friends
+                    about what God is doing in their communities. Those moments
+                    around the table are some of the most powerful parts of a trip
+                    like this.
+                  </p>
+                  <p>
+                    When Ben was there last year, he walked into this house and
+                    literally felt at home. A sense of peace. Comfort. By the end
+                    of the trip, it wasn&apos;t someone else&apos;s house anymore — it
+                    was home. It really is a special place, and we can&apos;t wait to
+                    share it with you.
+                  </p>
+                </div>
+              </StaggerItem>
+            </StaggerContainer>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="details"
+        className="scroll-mt-28 py-32 px-6 md:px-12 bg-zinc-50"
       >
         <div className="max-w-[1400px] mx-auto">
           <div className="max-w-5xl mx-auto text-center">
