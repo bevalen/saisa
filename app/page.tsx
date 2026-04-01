@@ -438,7 +438,7 @@ export default function Home() {
                 </FadeIn>
               </div>
 
-              <div>
+              <div id="activities" className="scroll-mt-28">
                 <FadeIn className="mb-8">
                   <p className="text-sm font-mono uppercase tracking-[0.24em] text-zinc-400 mb-3">
                     Activities we&apos;re planning
