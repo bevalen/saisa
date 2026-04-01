@@ -37,13 +37,50 @@ export default function Home() {
   ];
 
   const tripActivities = [
-    "Settling in at the village, meeting the local church family, walking the tea gardens, and sharing a meal together. Easy first day.",
-    "Two days of VBS with around 80 local kids — games, songs, crafts, and a whole lot of energy. Your kids will be right in the mix.",
-    "A soccer tournament with village youth. It’s a long, full day outside — and one of the highlights of the trip.",
-    "Visiting a local school to spend time with the students: playing, reading, praying, whatever feels natural.",
-    "A wildlife safari about 45 minutes away — jeep ride through the forest to see tigers, bison, and maybe even an elephant ride.",
-    "Two days in a hill station in the mountains — sightseeing, shopping, a nice dinner, and time to catch your breath.",
-    "Worship and testimony evenings at the house. Dinner with local friends who share what God is doing in their communities.",
+    {
+      title: "Village welcome day",
+      desc: "Meet the local church family, walk the tea gardens, visit a neighborhood cafe, and share a meal together. Easy first day to settle in.",
+    },
+    {
+      title: "VBS with local kids",
+      desc: "Two days of games, songs, and crafts with around 80 children from the community. Your kids will be right in the mix.",
+    },
+    {
+      title: "Soccer tournament",
+      desc: "A full day outside with village youth. One of the highlights of the last trip — expect a lot of energy and laughter.",
+    },
+    {
+      title: "School visit",
+      desc: "Spend time with students at a local school: playing, reading, praying, whatever feels natural.",
+    },
+    {
+      title: "Wildlife safari",
+      desc: "A jeep ride through the forest at a nearby park to see tigers, bison, and maybe even an elephant ride. About 45 minutes from the village.",
+    },
+    {
+      title: "Hill station getaway",
+      desc: "Two days up in the mountains — scenic views, a historic mountaineering museum, shopping, and a nice dinner out. Time to catch your breath.",
+    },
+    {
+      title: "Worship & music night",
+      desc: "An evening of worship at a local cafe with friends from the area. Low-key and meaningful.",
+    },
+    {
+      title: "Testimony dinners",
+      desc: "Most evenings back at the house, local friends join for dinner and share what God is doing in their lives and communities.",
+    },
+    {
+      title: "Prayer walks",
+      desc: "Slow evening walks through the village to pray quietly and notice the place. No agenda, no special training.",
+    },
+    {
+      title: "Taj Mahal day trip",
+      desc: "A possible add-on from Delhi — about two hours by train. Not guaranteed, but we’d love to squeeze it in if timing allows.",
+    },
+    {
+      title: "Delhi exploring",
+      desc: "A day to shop, eat incredible food, and take in the city before heading home.",
+    },
   ];
 
   const galleryImages = [
@@ -404,30 +441,32 @@ export default function Home() {
               <div>
                 <FadeIn className="mb-8">
                   <p className="text-sm font-mono uppercase tracking-[0.24em] text-zinc-400 mb-3">
-                    Day to day
+                    Activities we&apos;re planning
                   </p>
                   <h3 className="text-3xl md:text-4xl font-medium tracking-tight">
-                    What it might actually feel like
+                    What we might do together
                   </h3>
                 </FadeIn>
-                <FadeIn className="mx-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50/80 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+                <FadeIn className="mx-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
                   <div className="overflow-x-auto">
-                    <table className="w-full min-w-[min(100%,480px)] border-collapse text-left">
+                    <table className="w-full min-w-[min(100%,520px)] border-collapse text-left">
                       <caption className="sr-only">
-                        Six kinds of moments you might experience on the trip,
-                        in rough order.
+                        Potential activities and experiences during the trip.
                       </caption>
                       <tbody>
-                        {tripActivities.map((item, index) => (
+                        {tripActivities.map((item) => (
                           <tr
-                            key={item}
-                            className="border-b border-zinc-200/90 bg-white last:border-b-0"
+                            key={item.title}
+                            className="border-b border-zinc-200 last:border-b-0"
                           >
-                            <td className="w-[1%] whitespace-nowrap align-top py-5 pl-5 pr-3 font-mono text-sm tabular-nums text-zinc-400 md:pl-8 md:pr-5 md:text-base">
-                              {String(index + 1).padStart(2, "0")}
-                            </td>
+                            <th
+                              scope="row"
+                              className="w-[1%] whitespace-nowrap align-top py-5 pl-5 pr-4 text-base font-medium text-zinc-950 md:pl-8 md:pr-6 md:text-lg"
+                            >
+                              {item.title}
+                            </th>
                             <td className="align-top py-5 pr-5 text-base leading-relaxed text-zinc-600 md:pr-8 md:text-lg">
-                              {item}
+                              {item.desc}
                             </td>
                           </tr>
                         ))}
