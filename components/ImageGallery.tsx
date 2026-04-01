@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
@@ -15,42 +15,95 @@ type ImageGalleryProps = {
   images: GalleryImageItem[];
 };
 
+/**
+ * Infinite-scroll image carousel with gradient edge fades.
+ * Renders 3 copies of the images array and starts centered on the middle copy.
+ * When the user scrolls near the edges, it silently recenters to maintain
+ * the illusion of infinite scrolling in both directions.
+ */
 export function ImageGallery({ images }: ImageGalleryProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const hasInitialized = useRef(false);
+
+  // We render 3 copies: [copy0][copy1][copy2]
+  // Start scrolled to the middle of copy1 so user can scroll both ways.
+  const tripled = [...images, ...images, ...images];
+  const copyWidth = useRef(0);
+
+  // On mount, scroll to center of the middle copy (no animation)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || hasInitialized.current) return;
+
+    // Wait a tick for layout
+    requestAnimationFrame(() => {
+      const singleCopyWidth = el.scrollWidth / 3;
+      copyWidth.current = singleCopyWidth;
+      // Scroll to the middle of the center copy
+      el.scrollLeft = singleCopyWidth + singleCopyWidth / 2 - el.clientWidth / 2;
+      hasInitialized.current = true;
+    });
+  }, []);
+
+  // Recenter when scroll gets close to the edges
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const cw = copyWidth.current;
+        if (cw === 0) return;
+
+        // If scrolled into the first copy, jump forward by one copy width
+        if (el.scrollLeft < cw * 0.5) {
+          el.scrollLeft += cw;
+        }
+        // If scrolled into the third copy, jump back by one copy width
+        else if (el.scrollLeft > cw * 2.5) {
+          el.scrollLeft -= cw;
+        }
+      });
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Lightbox logic — map tripled index back to real index
+  const realIndex = openIndex !== null ? openIndex % images.length : null;
 
   const close = useCallback(() => setOpenIndex(null), []);
 
-  const showPrev = openIndex !== null && openIndex > 0;
-  const showNext = openIndex !== null && openIndex < images.length - 1;
-
   const goPrev = useCallback(() => {
-    setOpenIndex((i) => (i !== null && i > 0 ? i - 1 : i));
-  }, []);
+    setOpenIndex((i) => {
+      if (i === null) return i;
+      return i > 0 ? i - 1 : images.length * 3 - 1;
+    });
+  }, [images.length]);
 
   const goNext = useCallback(() => {
-    setOpenIndex((i) =>
-      i !== null && i < images.length - 1 ? i + 1 : i
-    );
+    setOpenIndex((i) => {
+      if (i === null) return i;
+      return i < images.length * 3 - 1 ? i + 1 : 0;
+    });
   }, [images.length]);
 
   useEffect(() => {
-    if (openIndex === null) {
-      return;
-    }
+    if (openIndex === null) return;
 
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        close();
-      }
-      if (event.key === "ArrowLeft") {
-        goPrev();
-      }
-      if (event.key === "ArrowRight") {
-        goNext();
-      }
+      if (event.key === "Escape") close();
+      if (event.key === "ArrowLeft") goPrev();
+      if (event.key === "ArrowRight") goNext();
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -60,27 +113,31 @@ export function ImageGallery({ images }: ImageGalleryProps) {
     };
   }, [openIndex, close, goPrev, goNext]);
 
-  const active = openIndex !== null ? images[openIndex] : null;
+  const active = realIndex !== null ? images[realIndex] : null;
 
   return (
     <>
       <div
-        className="-mx-6 md:-mx-12 mt-12 md:mt-16"
+        className="relative -mx-6 md:-mx-12 mt-12 md:mt-16"
         aria-label="Photo gallery"
       >
+        {/* Left gradient fade */}
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-24 bg-gradient-to-r from-white to-transparent" />
+        {/* Right gradient fade */}
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-24 bg-gradient-to-l from-white to-transparent" />
+
         <div
+          ref={scrollRef}
           className={[
             "flex gap-4 overflow-x-auto overflow-y-hidden px-6 md:px-12 pb-3",
             "snap-x snap-mandatory scroll-ps-6 scroll-pe-6 md:scroll-ps-12 md:scroll-pe-12",
-            "[scrollbar-width:thin]",
-            "[&::-webkit-scrollbar]:h-2",
-            "[&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-zinc-200/80",
-            "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-zinc-400/90",
+            "scrollbar-none",
           ].join(" ")}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {images.map((image, index) => (
+          {tripled.map((image, index) => (
             <button
-              key={image.src}
+              key={`${image.src}-${index}`}
               type="button"
               onClick={() => setOpenIndex(index)}
               className={[
@@ -108,8 +165,9 @@ export function ImageGallery({ images }: ImageGalleryProps) {
         </div>
       </div>
 
+      {/* Lightbox */}
       <AnimatePresence>
-        {active && openIndex !== null ? (
+        {active && realIndex !== null ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -127,36 +185,32 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               aria-label="Close gallery"
             />
 
-            {showPrev ? (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goPrev();
-                }}
-                className="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 md:left-6 md:h-12 md:w-12"
-                aria-label="Previous photo"
-              >
-                <CaretLeft className="h-6 w-6" weight="bold" />
-              </button>
-            ) : null}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                goPrev();
+              }}
+              className="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 md:left-6 md:h-12 md:w-12"
+              aria-label="Previous photo"
+            >
+              <CaretLeft className="h-6 w-6" weight="bold" />
+            </button>
 
-            {showNext ? (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goNext();
-                }}
-                className="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 md:right-6 md:h-12 md:w-12"
-                aria-label="Next photo"
-              >
-                <CaretRight className="h-6 w-6" weight="bold" />
-              </button>
-            ) : null}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                goNext();
+              }}
+              className="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20 md:right-6 md:h-12 md:w-12"
+              aria-label="Next photo"
+            >
+              <CaretRight className="h-6 w-6" weight="bold" />
+            </button>
 
             <motion.div
-              key={active.src}
+              key={active.src + openIndex}
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
@@ -192,7 +246,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               </div>
 
               <p className="mt-3 text-center text-xs text-white/45">
-                {openIndex + 1} / {images.length}
+                {realIndex + 1} / {images.length}
                 <span className="mx-2 text-white/25">·</span>
                 Arrow keys to move · Esc to close
               </p>
