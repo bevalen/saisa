@@ -16,7 +16,7 @@ export default function Home() {
   const logisticsItems = [
     {
       title: "When",
-      desc: "Early November 2026. Roughly 10 days, maybe closer to two weeks once we nail things down. We picked November on purpose — the weather is ideal (no monsoon, no summer heat), air quality is at its best, flights are more affordable, and it's shoulder season so the tourist crowds thin out. It's genuinely one of the best windows to visit.",
+      desc: "Fall 2026 — likely October or early November. Roughly 10 days, maybe closer to two weeks once we nail things down. We're targeting fall on purpose — the weather is ideal (no monsoon, no summer heat), air quality is at its best, flights are more affordable, and the tourist crowds thin out. It's genuinely one of the best windows to visit.",
     },
     {
       title: "Where",
@@ -37,12 +37,13 @@ export default function Home() {
   ];
 
   const tripActivities = [
-    "Being guests in a village we’re connected to: eating together, helping where it’s helpful, nothing performative.",
-    "Stopping by a local school and hanging out with the kids (play, conversation, whatever feels natural).",
-    "Simple stuff with children: games, coloring, praying together if people want to.",
-    "Slow walks through the village to pray quietly and notice the place. No special training required.",
-    "Singing and spending time with local friends who follow Jesus, warm and low-key.",
-    "A short getaway to a hill station to rest, debrief, and catch your breath.",
+    "Settling in at the village, meeting the local church family, walking the tea gardens, and sharing a meal together. Easy first day.",
+    "Two days of VBS with around 80 local kids — games, songs, crafts, and a whole lot of energy. Your kids will be right in the mix.",
+    "A soccer tournament with village youth. It’s a long, full day outside — and one of the highlights of the trip.",
+    "Visiting a local school to spend time with the students: playing, reading, praying, whatever feels natural.",
+    "A wildlife safari about 45 minutes away — jeep ride through the forest to see tigers, bison, and maybe even an elephant ride.",
+    "Two days in a hill station in the mountains — sightseeing, shopping, a nice dinner, and time to catch your breath.",
+    "Worship and testimony evenings at the house. Dinner with local friends who share what God is doing in their communities.",
   ];
 
   const galleryImages = [
@@ -134,7 +135,7 @@ export default function Home() {
                 we love
               </h1>
               <p className="text-xl md:text-2xl text-zinc-600 leading-relaxed max-w-[50ch] mb-12 mx-auto lg:mx-0">
-                We&apos;re taking our family to India in 2026, and
+                We&apos;re taking our family to India this fall, and
                 before we tell anyone else, we wanted to tell you. This is a
                 trip for parents and their children to experience ministry
                 side by side. Our daughter is four, and we can&apos;t wait to
@@ -454,7 +455,7 @@ export default function Home() {
                             Adults
                           </span>
                           <span className="text-xl text-zinc-600 sm:text-right">
-                            ~$2,500-$3,000 / person
+                            ~$2,800 / person
                           </span>
                         </div>
                         <div className="flex flex-col gap-2 py-5 text-left sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
